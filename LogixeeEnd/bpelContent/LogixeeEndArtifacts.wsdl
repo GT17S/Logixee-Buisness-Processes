@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="https://LogixeeEnd" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://servicesVE" xmlns:wsdl1="http://servicesVVV" xmlns:wsdl2="http://servicesEP" xmlns:wsdl3="http://servicesTP" name="LogixeeEnd" targetNamespace="https://LogixeeEnd">
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating in this BPEL process 
+     The BPEL Designer will generate default request and response types
+     but you can define or import any XML Schema type and use them as part 
+     of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="ExistencePLT">
+    <plnk:role name="ExistenceProvider" portType="wsdl:ExistenceVerificationServicesPortType"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="ValiditePLT">
+    <plnk:role name="ValiditeProvider" portType="wsdl1:ValiditeVerificationServicePortType"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="ExpeditionPLT">
+    <plnk:role name="ExpeditionProvider" portType="wsdl2:ExpeditionPlanificationServicesPortType"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="TourneesPLT">
+    <plnk:role name="TourneesProvider" portType="wsdl3:TourneesPlanServicePortType"/>
+  </plnk:partnerLinkType>
+    <import location="ExistenceVerificationServices.wsdl" namespace="http://servicesVE"/>
+    <import location="ValiditeVerificationService.wsdl" namespace="http://servicesVVV"/>
+    <import location="ExpeditionPlanificationServices.wsdl" namespace="http://servicesEP"/>
+    <import location="TourneesPlanService.wsdl" namespace="http://servicesTP"/>
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="https://LogixeeEnd">
+
+            <element name="LogixeeEndRequest">
+                <complexType>
+                    <sequence>
+                        <element name="numeroClient" type="string"/>
+                        <element name="numeroOrdre" type="string"/>
+                        <element name="ville" type="string"/>
+                        <element name="camionsDispo" type="int"/>
+                        <element name="camionettesDispo" type="int"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="LogixeeEndResponse">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+    </types>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <message name="LogixeeEndRequestMessage">
+        <part element="tns:LogixeeEndRequest" name="payload"/>
+    </message>
+    <message name="LogixeeEndResponseMessage">
+        <part element="tns:LogixeeEndResponse" name="payload"/>
+    </message>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+
+    <!-- portType implemented by the LogixeeEnd BPEL process -->
+    <portType name="LogixeeEnd">
+        <operation name="process">
+            <input message="tns:LogixeeEndRequestMessage"/>
+            <output message="tns:LogixeeEndResponseMessage"/>
+        </operation>
+    </portType>   
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="LogixeeEnd">
+        <plnk:role name="LogixeeEndProvider" portType="tns:LogixeeEnd"/>
+    </plnk:partnerLinkType>
+    
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     BINDING DEFINITION - Defines the message format and protocol details
+     for a web service.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <binding name="LogixeeEndBinding" type="tns:LogixeeEnd">
+    	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    	<operation name="process">
+    		<soap:operation soapAction="https://LogixeeEnd/process"/>
+    		<input>
+    			<soap:body use="literal"/>
+    		</input>
+    		<output>
+    			<soap:body use="literal"/>
+    		</output>
+    	</operation>
+    </binding>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     SERVICE DEFINITION - A service groups a set of ports into
+     a service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <service name="LogixeeEndService">
+    	<port binding="tns:LogixeeEndBinding" name="LogixeeEndPort">
+    		<soap:address location="http://localhost:8080/ode/processes/LogixeeEnd"/>
+    	</port>
+    </service>
+</definitions>

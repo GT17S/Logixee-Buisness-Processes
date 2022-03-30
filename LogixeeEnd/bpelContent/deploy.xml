@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:LogixeeEnd="https://LogixeeEnd" xmlns:servicesEP="http://servicesEP" xmlns:servicesTP="http://servicesTP" xmlns:servicesVE="http://servicesVE" xmlns:servicesVVV="http://servicesVVV">
+  <process name="LogixeeEnd:LogixeeEnd">
+    <active>true</active>
+    <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="client">
+      <service name="LogixeeEnd:LogixeeEndService" port="LogixeeEndPort"/>
+    </provide>
+    <invoke partnerLink="ExistencePL">
+      <service name="servicesVE:ExistenceVerificationServices" port="ExistenceVerificationServicesHttpSoap11Endpoint"/>
+    </invoke>
+    <invoke partnerLink="ValiditePL">
+      <service name="servicesVVV:ValiditeVerificationService" port="ValiditeVerificationServiceHttpSoap11Endpoint"/>
+    </invoke>
+    <invoke partnerLink="ExpeditionPL">
+      <service name="servicesEP:ExpeditionPlanificationServices" port="ExpeditionPlanificationServicesHttpSoap11Endpoint"/>
+    </invoke>
+    <invoke partnerLink="TourneesPL">
+      <service name="servicesTP:TourneesPlanService" port="TourneesPlanServiceHttpSoap11Endpoint"/>
+    </invoke>
+  </process>
+</deploy>
