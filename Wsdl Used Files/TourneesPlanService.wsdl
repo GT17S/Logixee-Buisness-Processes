@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:ns="http://servicesTP" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://servicesTP">
+    <wsdl:documentation>
+		Please Type your service description here
+	</wsdl:documentation>
+    <wsdl:types>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://servicesTP">
+            <xs:element name="RandomSOA">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="capaciteMaxChaqueEquipe" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="RandomSOAResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TourneesPlanService">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="a" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TourneesPlanServiceResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="TourneesPlanServiceRequest">
+        <wsdl:part name="parameters" element="ns:TourneesPlanService"/>
+    </wsdl:message>
+    <wsdl:message name="TourneesPlanServiceResponse">
+        <wsdl:part name="parameters" element="ns:TourneesPlanServiceResponse"/>
+    </wsdl:message>
+    <wsdl:message name="RandomSOARequest">
+        <wsdl:part name="parameters" element="ns:RandomSOA"/>
+    </wsdl:message>
+    <wsdl:message name="RandomSOAResponse">
+        <wsdl:part name="parameters" element="ns:RandomSOAResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="TourneesPlanServicePortType">
+        <wsdl:operation name="TourneesPlanService">
+            <wsdl:input message="ns:TourneesPlanServiceRequest" wsaw:Action="urn:TourneesPlanService"/>
+            <wsdl:output message="ns:TourneesPlanServiceResponse" wsaw:Action="urn:TourneesPlanServiceResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="RandomSOA">
+            <wsdl:input message="ns:RandomSOARequest" wsaw:Action="urn:RandomSOA"/>
+            <wsdl:output message="ns:RandomSOAResponse" wsaw:Action="urn:RandomSOAResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="TourneesPlanServiceSoap11Binding" type="ns:TourneesPlanServicePortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="TourneesPlanService">
+            <soap:operation soapAction="urn:TourneesPlanService" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="RandomSOA">
+            <soap:operation soapAction="urn:RandomSOA" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="TourneesPlanServiceSoap12Binding" type="ns:TourneesPlanServicePortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="TourneesPlanService">
+            <soap12:operation soapAction="urn:TourneesPlanService" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="RandomSOA">
+            <soap12:operation soapAction="urn:RandomSOA" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="TourneesPlanServiceHttpBinding" type="ns:TourneesPlanServicePortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="TourneesPlanService">
+            <http:operation location="TourneesPlanService"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="RandomSOA">
+            <http:operation location="RandomSOA"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="TourneesPlanService">
+        <wsdl:port name="TourneesPlanServiceHttpSoap11Endpoint" binding="ns:TourneesPlanServiceSoap11Binding">
+            <soap:address location="http://localhost:8080/axis2/services/TourneesPlanService.TourneesPlanServiceHttpSoap11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="TourneesPlanServiceHttpSoap12Endpoint" binding="ns:TourneesPlanServiceSoap12Binding">
+            <soap12:address location="http://localhost:8080/axis2/services/TourneesPlanService.TourneesPlanServiceHttpSoap12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="TourneesPlanServiceHttpEndpoint" binding="ns:TourneesPlanServiceHttpBinding">
+            <http:address location="http://localhost:8080/axis2/services/TourneesPlanService.TourneesPlanServiceHttpEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
