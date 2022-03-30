@@ -32,11 +32,11 @@ ODE est un logiciel codé en Java en tant que moteur de workflow pour gérer les
 #### Diagramme UML
 Apres l'interprétation du sujet, on se retrouve à établir un diagramme UML suivant pour les differents services proposés pour la societé 
 Logixee, avec les differents flux existants entre les clients et les services.
-![Diagramme des flux](./Report/logixee%20uml.pdf)
+![Diagramme des flux](./Report/logixee%20uml-1.png)
 
 #### Processus Métier
 Apres l'interprétation du diagramme UML, on se retrouve à établir un processus métiers sur BPEL, pour les differents services proposés pour la societé Logixee. 
-![Bpel Process](./Report/BPEL%20%20process.pdf)
+![Bpel Process](./Report/BPEL%20%20process-1.png)
 
 #### Cahier de charges du projet
 Pour plus d'informations sur ce projet, que çà soit sur coté conception et choix de services, tout est expliqué en details dans ce cahier de charges. 
